@@ -57,7 +57,16 @@ body > .container {
 .Juego{
   text-align: center;
 }
-
+.container-text{
+  text-align: justify;
+  padding-top: 3vh;
+  padding-left: 20vw;
+  padding-right: 20vw;
+  padding-bottom: 3vh;
+}
+.NombreJuego{
+  padding-top: 3vh;
+}
 /* Cards custom css
 -------------------------------------------------- */
 
