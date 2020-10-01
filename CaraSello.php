@@ -37,7 +37,7 @@ include_once("header.php")
             <h1>Cara o Sello</h1>
         </div>
         <div class="Juego">
-            <img src="assets/images/moneda_juego.png" class="img-fluid" alt="JuegoRuleta">
+            <img src="assets/images/moneda_juego.webp" class="img-fluid" alt="JuegoRuleta">
         </div>
         <div class="container-text">
             <div class="container">

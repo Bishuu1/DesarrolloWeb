@@ -1,6 +1,7 @@
 @font-face {
   font-family: Casino;
   src: url(CasinoFuente.ttf);
+  font-display: swap;
 }
 /*Navbar custom css
 -------------------------------------------------  */

@@ -22,7 +22,7 @@ include_once("header.php")
 
     <main role="main">
 
-        <div class="MainImg"><img src="assets/images/Main.png" class="img-fluid" alt="Responsive image"></div>
+        <div class="MainImg"><img src="assets/images/Main.webp" class="img-fluid" alt="Responsive image"></div>
 
 
 
@@ -31,19 +31,19 @@ include_once("header.php")
             <!-- Three columns of text below the carousel -->
             <div class="row">
                 <div class="col-lg-4">
-                    <img src="assets/images/ruleta_thumbnail.png" alt="Miniatura Ruleta" class="rounded-circle">
+                    <img src="assets/images/ruleta_thumbnail.webp" alt="Miniatura Ruleta" class="rounded-circle">
                     <h2>Ruleta</h2>
                     <h6>Arriesgate!</h6>
                     <p><a class="btn btn-secondary" href="Ruleta.php" role="button">Jugar &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
                 <div class="col-lg-4">
-                    <img src="assets/images/dados_thumbnail.png" alt="Miniatura Dados" class="rounded-circle">
+                    <img src="assets/images/dados_thumbnail.webp" alt="Miniatura Dados" class="rounded-circle">
                     <h2>Dados</h2>
                     <h6>Ya vienen con la suerte</h6>
                     <p><a class="btn btn-secondary" href="Dados.php" role="button">Jugar &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
                 <div class="col-lg-4">
-                    <img src="assets/images/moneda_thumbnail.png" alt="Miniatura CaraSello" class="rounded-circle">
+                    <img src="assets/images/moneda_thumbnail.webp" alt="Miniatura CaraSello" class="rounded-circle">
                     <h2>Cara o Sello</h2>
                     <h6>Prueba tu suerte con la moneda</h6>
                     <p><a class="btn btn-secondary" href="CaraSello.php" role="button">Jugar &raquo;</a></p>

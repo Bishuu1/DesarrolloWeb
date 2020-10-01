@@ -37,7 +37,7 @@ include_once("header.php")
             <h1>Dados</h1>
         </div>
         <div class="Juego">
-            <img src="assets/images/dados_juego.png" class="img-fluid" alt="JuegoDados">
+            <img src="assets/images/dados_juego.webp" class="img-fluid" alt="JuegoDados">
         </div>
 
         <div class="container-text">
