@@ -58,6 +58,17 @@ body > .container {
 .Juego{
   text-align: center;
 }
+.ruleta-indicador{
+	width: 20px;
+	height: 20px;
+	border-right: 5px solid red;
+	border-top: 5px solid red;
+  transform: rotate(-45deg);
+  position: absolute;
+  margin-left: 49.5%;
+  margin-top: 10px;
+}
+
 .container-text{
   text-align: justify;
   padding-top: 3vh;

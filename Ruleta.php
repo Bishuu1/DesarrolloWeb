@@ -1,5 +1,45 @@
 <?php
-include_once("header.php")
+    include_once("header.php");
+    $randomNumber = rand(0,37);
+    $message = "<p>Elige un número entre 0 y 37(Equivale al 00), y la cantidad que quieras apostar para comenzar a jugar!</p>";
+    $ganador = 36*$_GET["CantApuesta"];
+
+    if ( isset($_GET["CantApuesta"]) && isset($_GET["NumeroApuesta"]) && $_GET["CantApuesta"] !="" && $_GET["NumeroApuesta"] !=""){
+?>
+
+<script>
+$(function() {
+    function rotate(degree) {
+        arregloNumero = [122, 34, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        ];
+        $("#ruleta-juego-imagen").css({
+            'transform': 'rotate(3600deg)'
+        });
+    }
+
+
+    rotate();
+
+    setTimeout(function() {
+        $("#messageRuleta").css({
+            'display': 'block'
+        });
+    }, 4000);
+
+});
+</script>
+
+<?php
+    if($_GET["NumeroApuesta"] == $randomNumber){
+        $message = "<p id='messageRuleta' style='display:none;'> Felicitaciones, salió ".$randomNumber." ganaste $ ".$ganador."! Sigue jugando!</p>";
+    }
+    else{
+        $message = "<p id='messageRuleta' style='display:none;'> Que lastima salió ".$randomNumber." y perdiste ".$_GET["CantApuesta"].". Sigue jugando!</p>";
+    }
+}
+
 ?>
 
 <body>
@@ -37,7 +77,9 @@ include_once("header.php")
             <h1>Ruleta</h1>
         </div>
         <div class="Juego">
-            <img src="assets/images/ruleta_juego.webp" class="img-fluid" alt="JuegoRuleta" />
+            <?php print($message);?>
+            <img id='ruleta-juego-imagen' src="assets/images/ruleta_juego.webp" alt="JuegoRuleta" />
+            <div class="ruleta-indicador"></div>
         </div>
 
         <div class="container-text">
@@ -46,11 +88,11 @@ include_once("header.php")
                     <div class="row">
                         <div class="col">
                             <label for="NumeroApuesta">Numero a apostar</label><br>
-                            <input type="number" min="0" max="36" step="1" />
+                            <input name="NumeroApuesta" type="number" min="0" max="36" step="1" />
                         </div>
                         <div class="col">
                             <label for="CantApuesta">Cantidad a apostar</label><br>
-                            <input type="number" min="0" step="1" />
+                            <input name="CantApuesta" type="number" min="0" step="1" />
                             <button type="submit" class="btn btn-primary mb-2">Ingresar apuesta</button>
                         </div>
                     </div>
@@ -73,8 +115,7 @@ include_once("header.php")
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </script>
     <script>
     window.jQuery ||
