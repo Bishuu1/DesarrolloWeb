@@ -9,18 +9,16 @@
 
 <script>
 $(function() {
-    function rotate(degree) {
-        arregloNumero = [122, 34, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    function rotate(numero) {
+        arregloNumero = [-1, -172, 8, 226, 405, -97, 84, -58, 122, -20, 160, -49, 131, -161, 18, -124, 56, -86,
+            93, 112, -67, 74, -104, 37, -142, -150, -29, 170, -10, 141, -38, 103, -76, 65, -113, 27, -152,
+            178
         ];
-        $("#ruleta-juego-imagen").css({
-            'transform': 'rotate(3600deg)'
-        });
+        $("#ruleta-juego-imagen").css({'transform': 'rotate(' +parseInt(3600+arregloNumero[numero])+ 'deg)'});
     }
 
 
-    rotate();
+    rotate(<?php print($randomNumber) ?>);
 
     setTimeout(function() {
         $("#messageRuleta").css({
@@ -78,7 +76,7 @@ $(function() {
         </div>
         <div class="Juego">
             <?php print($message);?>
-            <img id='ruleta-juego-imagen' src="assets/images/ruleta_juego.webp" alt="JuegoRuleta" />
+            <img id="ruleta-juego-imagen" src="assets/images/ruleta_juego.webp" alt="JuegoRuleta" />
             <div class="ruleta-indicador"></div>
         </div>
 
@@ -88,7 +86,7 @@ $(function() {
                     <div class="row">
                         <div class="col">
                             <label for="NumeroApuesta">Numero a apostar</label><br>
-                            <input name="NumeroApuesta" type="number" min="0" max="36" step="1" />
+                            <input name="NumeroApuesta" type="number" min="0" max="37" step="1" />
                         </div>
                         <div class="col">
                             <label for="CantApuesta">Cantidad a apostar</label><br>
