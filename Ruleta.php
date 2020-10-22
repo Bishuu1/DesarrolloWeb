@@ -1,20 +1,24 @@
 <?php
     include_once("header.php");
     $randomNumber = rand(0,37);
+    $randomNumber = 1;
     $message = "<p>Elige un número entre 0 y 37(Equivale al 00), y la cantidad que quieras apostar para comenzar a jugar!</p>";
-    $ganador = 36*$_GET["CantApuesta"];
+    $ganador = 36*$_POST["CantApuesta"];
 
-    if ( isset($_GET["CantApuesta"]) && isset($_GET["NumeroApuesta"]) && $_GET["CantApuesta"] !="" && $_GET["NumeroApuesta"] !=""){
+    if ( isset($_POST["CantApuesta"]) && isset($_POST["NumeroApuesta"]) && $_POST["CantApuesta"] !="" && $_POST["NumeroApuesta"] !=""){
 ?>
 
 <script>
 $(function() {
     function rotate(numero) {
-        arregloNumero = [-1, -172, 8, 226, 405, -97, 84, -58, 122, -20, 160, -49, 131, -161, 18, -124, 56, -86,
+        arregloNumero = [-1, -172, 8, 226, 405, -97, 84, -58, 122, -20, 160, -49, 131, -161, 18, -124, 56, -
+            86,
             93, 112, -67, 74, -104, 37, -142, -150, -29, 170, -10, 141, -38, 103, -76, 65, -113, 27, -152,
             178
         ];
-        $("#ruleta-juego-imagen").css({'transform': 'rotate(' +parseInt(3600+arregloNumero[numero])+ 'deg)'});
+        $("#ruleta-juego-imagen").css({
+            'transform': 'rotate(' + parseInt(3600 + arregloNumero[numero]) + 'deg)'
+        });
     }
 
 
@@ -82,7 +86,7 @@ $(function() {
 
         <div class="container-text">
             <div class="container">
-                <form>
+                <form method="POST">
                     <div class="row">
                         <div class="col">
                             <label for="NumeroApuesta">Numero a apostar</label><br>
@@ -98,32 +102,7 @@ $(function() {
             </div>
         </div>
     </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="text">
-                <a href="AboutUs.php">Sobre Nosotros</a>
-            </div>
-            <div class="text">
-                <a class="UsoResponsable" href="UsoResponsable.php">Uso Responsable</a>
-            </div>
-            <div class="copyright">
-                <h7>Powerby Bishuu1</h7>
-            </div>
-        </div>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    </script>
-    <script>
-    window.jQuery ||
-        document.write(
-            '<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>'
-        );
-    </script>
-    <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
-    </script>
+    <?php  include_once("Footer.php")?>
 </body>
 
 </html>

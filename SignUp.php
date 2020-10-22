@@ -33,31 +33,9 @@ include_once("header.php")
     </header>
 
     <main role="main">
-        <div class="NombreJuego">
-            <h1>Cara o Sello</h1>
-        </div>
-        <div class="Juego">
-            <img src="assets/images/moneda_juego.webp" class="img-fluid" alt="JuegoRuleta">
-        </div>
+
         <div class="container-text">
-            <div class="container">
-                <form>
-                    <div class="row">
-                        <div class="col">
-                            <label for="Selector-CaraSello">Elige Cara o Sello</label>
-                            <select class="form-control" id="Opcion-CaraSello">
-                                <option>Cara</option>
-                                <option>Sello</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="CantApuesta">Cantidad a apostar</label><br>
-                            <input type="number" min="0" step="1" />
-                            <button type="submit" class="btn btn-primary mb-2">Ingresar apuesta</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+
         </div>
     </main>
     <?php  include_once("Footer.php")?>
