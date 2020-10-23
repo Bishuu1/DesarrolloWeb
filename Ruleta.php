@@ -1,7 +1,6 @@
 <?php
     include_once("header.php");
     $randomNumber = rand(0,37);
-    $randomNumber = 1;
     $message = "<p>Elige un número entre 0 y 37(Equivale al 00), y la cantidad que quieras apostar para comenzar a jugar!</p>";
     $ganador = 36*$_POST["CantApuesta"];
 
@@ -34,11 +33,11 @@ $(function() {
 </script>
 
 <?php
-    if($_GET["NumeroApuesta"] == $randomNumber){
+    if($_POST["NumeroApuesta"] == $randomNumber){
         $message = "<p id='messageRuleta' style='display:none;'> Felicitaciones, salió ".$randomNumber." ganaste $ ".$ganador."! Sigue jugando!</p>";
     }
     else{
-        $message = "<p id='messageRuleta' style='display:none;'> Que lastima salió ".$randomNumber." y perdiste ".$_GET["CantApuesta"].". Sigue jugando!</p>";
+        $message = "<p id='messageRuleta' style='display:none;'> Que lastima salió ".$randomNumber." y perdiste ".$_POST["CantApuesta"].". Sigue jugando!</p>";
     }
 }
 

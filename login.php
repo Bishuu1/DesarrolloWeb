@@ -1,44 +1,7 @@
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php
-include_once("header.php");
-require 'vendor/autoload.php';
-use MongoDB\Client;
-
-$client = new Client('mongodb://localhost:27017');
-$usuarios = $client->casino->usuarios;
-
-if ( isset($_POST["Email"]) && isset($_POST["Password"]) && isset($_POST["PassConfirm"]) ){
-    if($_POST["Password"] == $_POST["PassConfirm"]){
-        $usr = $usuarios->findOne(array("Email" => $_POST["Email"]));
-        if($usr['Email'] != $_POST["Email"]){
-            $insertOneResult = $usuarios->insertOne([
-            'Email' => $_POST["Email"],
-            'Password' => $_POST["Password"]   
-        ])
+include_once("header.php")
 ?>
-
-<div class="alert alert-success" role="alert">
-    Registro completado!
-</div>
-
-<script>
-setTimeout(function() {
-    location.href = "index.php"
-}, 4000);
-</script>
-
-<?php
-}}
-else{
-?>
-
-<div class="alert alert-dark" role="alert">
-    Error al registrar!
-</div>
-
-<?php
-}}
-?>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 <body>
     <header>
@@ -71,24 +34,32 @@ else{
     </header>
 
     <main role="main">
-
         <div class="Formulario-Registro">
-            <h1>Registrate</h1>
-            <form method="POST">
+            <h1>Inicio de Sesión</h1>
+            <form>
                 <div class="form-group">
-                    <label for="">Email</label>
-                    <input name="Email" type="Email" class="form-control">
+                    <label for="Email">Email</label>
+                    <input type="email" class="form-control" id="Email">
                 </div>
                 <div class="form-group">
-                    <label for="Pass">Password</label>
-                    <input name="Password" type="password" class="form-control">
+                    <label for="Password">Contraseña</label>
+                    <input type="password" class="form-control" id="Password">
                 </div>
-                <div class="form-group">
-                    <label for="Password">Confirmación de contraseña</label>
-                    <input name="PassConfirm" type="password" class="form-control">
-                    <br />
-                    <button type="submit" class="btn btn-danger">Registrarte</button>
+                <div>
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-5">
+                                <button type="submit" class="btn btn-danger">Iniciar sesión</button>
+                            </div>
+                            <div class="col-4">
+                                <a class="btn btn-link" href="SignUp.php" role="button">Registrate</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
+
             </form>
 
         </div>
