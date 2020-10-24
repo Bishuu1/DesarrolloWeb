@@ -1,30 +1,24 @@
 <?php
 include_once("header.php");
-if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
-    header("Location: index.php");
-die();
-}
-$usrLogin = $usuarios->findOne(array("Email" => $_POST["Email"], "Password" => $_POST["Password"]));
-$login = false;
-if ( isset($_POST["Email"]) && isset($_POST["Password"] )){  
-if($usrLogin['Email'] == $_POST["Email"] && $usrLogin['Password'] == $_POST["Password"]){
-    $login = true;
-}
-if($login == true){
-    $_SESSION["user"] = array("Email" => $usrLogin["Email"], "Saldo" => $usrLogin["Saldo"]);
-    ?>
 
+if (isset($_POST["AgregarSaldo"])){
+    $nuevoSaldo = $_SESSION["user"]["Saldo"] + $_POST["AgregarSaldo"];
+    
+    $updateResult = $usuarios->updateOne(  
+        [ 'Email' => $_SESSION["user"]["Email"] ],
+        [ '$set' => [ "Saldo" => $nuevoSaldo ]]);
+    $_SESSION["user"]["Saldo"] = $nuevoSaldo;
+    $insertOneResult = $apuestas->insertOne([
+        'Email' => $_SESSION["user"]["Email"],
+        'time' => date("d-m-Y"),
+        'Descripción' => "Compra creditos",
+        'Transaccion' => $_POST["AgregarSaldo"]
+        ])
+        ?>
 <div class="alert alert-success" role="alert">
-    Sesión iniciada!
+    Saldo actualizado, tu nuevo saldo es <?php printf($_SESSION["user"]["Saldo"])?>
 </div>
-<script>
-location.href = "index.php"
-</script>
-
-<?php
-}
-}
-?>
+<?php } ?>
 
 <body>
     <header>
@@ -67,33 +61,22 @@ location.href = "index.php"
 
     <main role="main">
         <div class="Formulario-Registro">
-            <h1>Inicio de Sesión</h1>
-            <form method="POST">
-                <div class="form-group">
-                    <label for="Email">Email</label>
-                    <input name="Email" type="email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="Password">Contraseña</label>
-                    <input name="Password" type="password" class="form-control">
-                </div>
-                <div>
-                    <div class="container">
-                        <div class="row justify-content-between">
-                            <div class="col-5">
-                                <button type="submit" class="btn btn-danger">Iniciar sesión</button>
-                            </div>
-                            <div class="col-4">
-                                <a class="btn btn-link" href="SignUp.php" role="button">Registrate</a>
-                            </div>
-                        </div>
+            <h1>Tu Perfil</h1>
+            <div>
+                <fieldset disabled>
+                    <div class="form-group">
+                        <label for="SaldoActual">Tu saldo actual</label>
+                        <input class="form-control" type="text" placeholder=<?php printf($_SESSION["user"]["Saldo"])?>
+                            readonly>
                     </div>
-
+            </div>
+            <form class="form-inline" method="POST">
+                <div class="form-group mb-2">
+                    <label for="Agregar" class="sr-only">¿Deseas agregar saldo?</label>
+                    <input name="AgregarSaldo" type="number" step="1" min="1000" />
                 </div>
-
-
+                <button type="submit" class="btn btn-danger mb-2">Pagar</button>
             </form>
-
         </div>
     </main>
     <?php  include_once("Footer.php")?>

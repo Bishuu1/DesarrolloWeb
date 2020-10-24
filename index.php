@@ -1,9 +1,17 @@
 <?php
 include_once("header.php");
+
 ?>
 
 <body>
     <header>
+        <?php 
+    if (isset($_SESSION["user"]["Email"])){ ?>
+        <div class="alert alert-success" role="alert">
+            <?php print($_SESSION["user"]["Email"]);?>
+        </div>
+        <?php } ?>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <a class="navbar-brand" href="/">7Lucky!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
@@ -14,7 +22,16 @@ include_once("header.php");
                 <ul class="navbar-nav mr-auto">
                 </ul>
                 <span class="navbar-text">
+                    <?php 
+                    if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+                        ?>
+                    <a class="nav-link" href="Profile.php"><?php printf($_SESSION["user"]["Email"])?></a>
+                </span>
+                <?php
+                }else{ ?>
+                <span class="navbar-text">
                     <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <?php }?>
                 </span>
             </div>
         </nav>

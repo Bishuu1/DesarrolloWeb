@@ -1,20 +1,27 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php
 include_once("header.php");
-require 'vendor/autoload.php';
-use MongoDB\Client;
 
-$client = new Client('mongodb://localhost:27017');
-$usuarios = $client->casino->usuarios;
+if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+    header("Location: index.php");
+die();
+}
 
 if ( isset($_POST["Email"]) && isset($_POST["Password"]) && isset($_POST["PassConfirm"]) ){
     if($_POST["Password"] == $_POST["PassConfirm"]){
-        $usr = $usuarios->findOne(array("Email" => $_POST["Email"]));
-        if($usr['Email'] != $_POST["Email"]){
+        $usrRegistro = $usuarios->findOne(array("Email" => $_POST["Email"]));
+        if($usrRegistro['Email'] != $_POST["Email"]){
             $insertOneResult = $usuarios->insertOne([
             'Email' => $_POST["Email"],
-            'Password' => $_POST["Password"]   
-        ])
+            'Password' => $_POST["Password"],
+            'Saldo' => 10000,
+        ]);
+        $insertOneResult = $apuestas->insertOne([
+            'Email' => $_SESSION["user"]["Email"],
+            'time' => date("d-m-Y"),
+            'Descripción' => "Regalo inicial de creditos",
+            'Transaccion' => 10000
+            ]);
 ?>
 
 <div class="alert alert-success" role="alert">
@@ -64,7 +71,16 @@ else{
                     </li>
                 </ul>
                 <span class="navbar-text">
+                    <?php 
+                    if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+                        ?>
+                    <a class="nav-link" href="Profile.php"><?php printf($_SESSION["user"]["Email"])?></a>
+                </span>
+                <?php
+                }else{ ?>
+                <span class="navbar-text">
                     <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <?php }?>
                 </span>
             </div>
         </nav>

@@ -26,11 +26,22 @@ include_once("header.php")
                     </li>
                 </ul>
                 <span class="navbar-text">
+                    <?php 
+                    if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+                        ?>
+                    <a class="nav-link" href="Profile.php"><?php printf($_SESSION["user"]["Email"])?></a>
+                </span>
+                <?php
+                }else{ ?>
+                <span class="navbar-text">
                     <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <?php }?>
                 </span>
             </div>
         </nav>
     </header>
+
+
 
     <main role="main">
 
@@ -43,7 +54,8 @@ include_once("header.php")
             </p>
             <h2>Autoexclusión </h2>
             <p> Si crees que participar en juegos podría suponer un grave problema en tu vida, en vez de un
-                entretenimiento, debes saber que estamos dispuestos a ayudarte. Primero responde a estas preguntas:
+                entretenimiento,
+                debes saber que estamos dispuestos a ayudarte. Primero responde a estas preguntas:
 
                 ¿Alguna vez has dejado de trabajar o estudiar para jugar?
                 ¿Has desatendido tu propio bienestar o el de tu familia debido al juego?
@@ -56,20 +68,25 @@ include_once("header.php")
             <h2>Lo que puedes hacer para ayudarte</h2>
             <h3>Identificar y reducir riesgos</h3>
             <p>Si decides jugar online, hay ciertas pautas generales que pueden ayudarte a disfrutar de una experiencia
-                de juego más segura y a reducir el riesgo de que ocurran problemas:
+                de
+                juego más segura y a reducir el riesgo de que ocurran problemas:
             </p>
             <ol>
                 <li>Juega para divertirte, no con el objetivo de ganar dinero.</li>
                 <li> Juega con dinero que realmente puedas perder. Nunca uses el dinero de cosas importantes, como la
                     comida, el alquiler, las facturas o las clases.</li>
                 <li>Restringe los límite de depósito y asegúrate de no ingresar más dinero del que puedes permitirte
-                    perder.</li>
+                    perder.
+                </li>
                 <li>Nunca intentes recuperar tus pérdidas de forma compulsiva. Si has perdido dinero, no juegues en
-                    juegos de apuestas altas para tratar de recuperarlo.</li>
+                    juegos
+                    de apuestas altas para tratar de recuperarlo.</li>
                 <li>Nunca juegues cuando estés enfadado, cansado o deprimido. Es difícil tomar buenas decisiones cuando
-                    no estás al 100 %.</li>
+                    no
+                    estás al 100 %.</li>
                 <li>Combina el juego con otras actividades. Debes encontrar otras formas de divertirte aparte de los
-                    juegos para que no se convierta en la actividad principal de tu vida cotidiana.</li>
+                    juegos
+                    para que no se convierta en la actividad principal de tu vida cotidiana.</li>
             </ol>
             <h5>Cuidate y disfruta jugar</h5>
         </div>

@@ -33,26 +33,14 @@
     <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
 
-
-    <script type="text/javascript"
-        src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6i1dxnce89CNfvnzCoWRqDxqwi-Xm7gGluv9jXgcB5BQI3MDwhpC8SFZZGOHthtKFE1IUObn-WP9xkIE86gZDUPi4UnD8ysSHDHj7AuTPW0"
-        charset="UTF-8"></script>
-    <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-    </style>
     <!-- Custom styles for this template -->
     <link href="assets/style/style.css" rel="stylesheet">
 </head>
+<?php 
+session_start();
+require 'vendor/autoload.php';
+use MongoDB\Client;
+$client = new Client('mongodb://localhost:27017');
+$usuarios = $client->casino->usuarios;
+$apuestas = $client->casino->apuestas;
+?>

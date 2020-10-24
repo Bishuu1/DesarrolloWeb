@@ -1,10 +1,14 @@
 <?php
     include_once("header.php");
+    if ( isset($_SESSION["user"]["Email"]) == NULL || $_SESSION["user"]["Email"] == "" ){
+        header("Location: login.php");
+    die();
+    }
     $randomNumber = rand(0,37);
     $message = "<p>Elige un número entre 0 y 37(Equivale al 00), y la cantidad que quieras apostar para comenzar a jugar!</p>";
     $ganador = 36*$_POST["CantApuesta"];
-
     if ( isset($_POST["CantApuesta"]) && isset($_POST["NumeroApuesta"]) && $_POST["CantApuesta"] !="" && $_POST["NumeroApuesta"] !=""){
+        if ( $_SESSION["user"]["Saldo"] >= $_POST["CantApuesta"]){
 ?>
 
 <script>
@@ -35,13 +39,38 @@ $(function() {
 <?php
     if($_POST["NumeroApuesta"] == $randomNumber){
         $message = "<p id='messageRuleta' style='display:none;'> Felicitaciones, salió ".$randomNumber." ganaste $ ".$ganador."! Sigue jugando!</p>";
+        $nuevoSaldo = $_SESSION["user"]["Saldo"] + $ganador;
+        $updateResult = $usuarios->updateOne(  
+            [ 'Email' => $_SESSION["user"]["Email"] ],
+            [ '$set' => [ "Saldo" => $nuevoSaldo ]]);
+        $_SESSION["user"]["Saldo"] = $nuevoSaldo;
+        $insertOneResult = $apuestas->insertOne([
+            'Email' => $_SESSION["user"]["Email"],
+            'time' => date("d-m-Y"),
+            'Descripción' => "Gano en ruleta",
+            'Transaccion' => $ganador
+            ]);
+
     }
     else{
         $message = "<p id='messageRuleta' style='display:none;'> Que lastima salió ".$randomNumber." y perdiste ".$_POST["CantApuesta"].". Sigue jugando!</p>";
+        $nuevoSaldo = $_SESSION["user"]["Saldo"] - $_POST["CantApuesta"];
+        $updateResult = $usuarios->updateOne(
+            [ 'Email' => $_SESSION["user"]["Email"] ],
+            [ '$set' => [ "Saldo" => $nuevoSaldo ]]);
+        $_SESSION["user"]["Saldo"] = $nuevoSaldo;
+        $insertOneResult = $apuestas->insertOne([
+            'Email' => $_SESSION["user"]["Email"],
+            'time' => date("d-m-Y"),
+            'Descripción' => "Perdio en ruleta",
+            'Transaccion' => -$_POST["CantApuesta"]
+            ]);
     }
-}
-
-?>
+}else { ?>
+<div class="alert alert-danger" role="alert">
+    Saldo insuficiente:(, ve a cargar dinero, tu saldo actual es <?php printf($_SESSION["user"]["Saldo"])?>
+</div>
+<?php }}?>
 
 <body>
     <header>
@@ -67,7 +96,16 @@ $(function() {
                     </li>
                 </ul>
                 <span class="navbar-text">
+                    <?php 
+                    if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+                        ?>
+                    <a class="nav-link" href="Profile.php"><?php printf($_SESSION["user"]["Email"])?></a>
+                </span>
+                <?php
+                }else{ ?>
+                <span class="navbar-text">
                     <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <?php }?>
                 </span>
             </div>
         </nav>
@@ -93,7 +131,7 @@ $(function() {
                         </div>
                         <div class="col">
                             <label for="CantApuesta">Cantidad a apostar</label><br>
-                            <input name="CantApuesta" type="number" min="0" step="1" />
+                            <input name="CantApuesta" type="number" min="1000" step="1" />
                             <button type="submit" class="btn btn-primary mb-2">Ingresar apuesta</button>
                         </div>
                     </div>

@@ -26,7 +26,16 @@ include_once("header.php")
                     </li>
                 </ul>
                 <span class="navbar-text">
+                    <?php 
+                    if ( isset($_SESSION["user"]["Email"]) && $_SESSION["user"]["Email"] != "" ){
+                        ?>
+                    <a class="nav-link" href="Profile.php"><?php printf($_SESSION["user"]["Email"])?></a>
+                </span>
+                <?php
+                }else{ ?>
+                <span class="navbar-text">
                     <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <?php }?>
                 </span>
             </div>
         </nav>
