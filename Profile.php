@@ -1,7 +1,9 @@
 <?php
 include_once("header.php");
-
-if (isset($_POST["AgregarSaldo"])){
+if(a == b){
+    header("Location: index.php");
+}
+if (isset($_POST["AgregarSaldo"]) && $_POST["AgregarSaldo"] != ""){
     $nuevoSaldo = $_SESSION["user"]["Saldo"] + $_POST["AgregarSaldo"];
     
     $updateResult = $usuarios->updateOne(  
@@ -63,20 +65,68 @@ if (isset($_POST["AgregarSaldo"])){
         <div class="Formulario-Registro">
             <h1>Tu Perfil</h1>
             <div>
-                <fieldset disabled>
-                    <div class="form-group">
-                        <label for="SaldoActual">Tu saldo actual</label>
-                        <input class="form-control" type="text" placeholder=<?php printf($_SESSION["user"]["Saldo"])?>
-                            readonly>
-                    </div>
+                <p>
+                    <a class="btn btn-primary" data-toggle="collapse" href="#CompraCreditos" role="button"
+                        aria-expanded="false" aria-controls="CompraCreditos">Compra de creditos</a>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                        data-target="#HistorialTransacciones" aria-expanded="false"
+                        aria-controls="HistorialTransacciones">Historial de transacciones</button>
+                </p>
             </div>
-            <form class="form-inline" method="POST">
-                <div class="form-group mb-2">
-                    <label for="Agregar" class="sr-only">¿Deseas agregar saldo?</label>
-                    <input name="AgregarSaldo" type="number" step="1" min="1000" />
+            <div>
+            </div>
+            <div class="collapse multi-collapse" id="CompraCreditos">
+                <div>
+                    <fieldset disabled>
+                        <div class="form-group">
+                            <label for="SaldoActual">Tu saldo actual</label>
+                            <input class="form-control" type="text"
+                                placeholder=<?php printf($_SESSION["user"]["Saldo"])?> readonly>
+                        </div>
                 </div>
-                <button type="submit" class="btn btn-danger mb-2">Pagar</button>
-            </form>
+                <form class="form-inline" method="POST">
+                    <div class="form-group mb-2">
+                        <label for="Agregar" class="sr-only">¿Deseas agregar saldo?</label>
+                        <input name="AgregarSaldo" type="number" step="1" min="1000" required />
+                    </div>
+                    <button type="submit" class="btn btn-danger mb-2">Pagar</button>
+                </form>
+            </div>
+            <div class="collapse multi-collapse" id="HistorialTransacciones">
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Detalle</th>
+                                <th scope="col">Transaccion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $Busqueda = array('Email' => $_SESSION["user"]["Email"]);
+                            $Transacciones = $apuestas->find($Busqueda);
+                            foreach($Transacciones as $u){
+                                    ?>
+                            <tr>
+                                <td><?php printf($u["time"]) ?></td>
+                                <td><?php printf($u["Descripción"]) ?></td>
+                                <?php 
+                                    if($u["Transaccion"] >0 ){ ?>
+                                <td class="table-success"><?php printf($u["Transaccion"]);?></td>
+                                <?php 
+                                    }else{ ?>
+                                <td class="table-danger"><?php printf($u["Transaccion"]);?></td>
+                                <?php } 
+                        } ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- <button type="button" class="btn btn-danger" onClick= <?php // session_destroy()?>>Cerrar Sesion</button> !-->
         </div>
     </main>
     <?php  include_once("Footer.php")?>

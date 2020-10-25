@@ -17,7 +17,7 @@ if ( isset($_POST["Email"]) && isset($_POST["Password"]) && isset($_POST["PassCo
             'Saldo' => 10000,
         ]);
         $insertOneResult = $apuestas->insertOne([
-            'Email' => $_SESSION["user"]["Email"],
+            'Email' => $_POST["Email"],
             'time' => date("d-m-Y"),
             'Descripción' => "Regalo inicial de creditos",
             'Transaccion' => 10000
@@ -30,7 +30,7 @@ if ( isset($_POST["Email"]) && isset($_POST["Password"]) && isset($_POST["PassCo
 
 <script>
 setTimeout(function() {
-    location.href = "index.php"
+    location.href = "index.php";
 }, 4000);
 </script>
 
@@ -93,15 +93,15 @@ else{
             <form method="POST">
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input name="Email" type="Email" class="form-control">
+                    <input name="Email" type="Email" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="Pass">Password</label>
-                    <input name="Password" type="password" class="form-control">
+                    <input name="Password" type="password" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Confirmación de contraseña</label>
-                    <input name="PassConfirm" type="password" class="form-control">
+                    <input name="PassConfirm" type="password" class="form-control" required>
                     <br />
                     <button type="submit" class="btn btn-danger">Registrarte</button>
                 </div>

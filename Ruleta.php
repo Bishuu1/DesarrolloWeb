@@ -127,11 +127,11 @@ $(function() {
                     <div class="row">
                         <div class="col">
                             <label for="NumeroApuesta">Numero a apostar</label><br>
-                            <input name="NumeroApuesta" type="number" min="0" max="37" step="1" />
+                            <input name="NumeroApuesta" type="number" min="0" max="37" step="1" required>
                         </div>
                         <div class="col">
                             <label for="CantApuesta">Cantidad a apostar</label><br>
-                            <input name="CantApuesta" type="number" min="1000" step="1" />
+                            <input name="CantApuesta" type="number" min="1000" step="1" required>
                             <button type="submit" class="btn btn-primary mb-2">Ingresar apuesta</button>
                         </div>
                     </div>

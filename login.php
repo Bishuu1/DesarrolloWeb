@@ -71,11 +71,11 @@ location.href = "index.php"
             <form method="POST">
                 <div class="form-group">
                     <label for="Email">Email</label>
-                    <input name="Email" type="email" class="form-control">
+                    <input name="Email" type="email" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="Password">Contraseña</label>
-                    <input name="Password" type="password" class="form-control">
+                    <input name="Password" type="password" class="form-control" required>
                 </div>
                 <div>
                     <div class="container">

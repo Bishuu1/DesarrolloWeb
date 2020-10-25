@@ -1,5 +1,9 @@
 <?php
-include_once("header.php")
+include_once("header.php");
+if ( isset($_SESSION["user"]["Email"]) == NULL || $_SESSION["user"]["Email"] == "" ){
+    header("Location: login.php");
+die();
+}
 ?>
 
 <body>
