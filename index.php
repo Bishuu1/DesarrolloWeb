@@ -66,9 +66,6 @@ include_once("header.php");
                     <p><a class="btn btn-secondary" href="CaraSello.php" role="button">Jugar &raquo;</a></p>
                 </div><!-- /.col-lg-4 -->
             </div><!-- /.row -->
-
-
-
         </div><!-- /.container -->
     </main>
     <?php  include_once("Footer.php")?>
