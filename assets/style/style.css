@@ -55,8 +55,18 @@ body > .container {
   margin-bottom: 4rem;
 }
 
+a.Juego:hover{
+  transform: skewX(2deg);
+  position: absolute;
+  
+}
+
 .Juego{
   text-align: center;
+
+}
+#ruleta-juego-imagen{
+  transition: 3998ms ease all;
 }
 .ruleta-indicador{
 	width: 20px;
