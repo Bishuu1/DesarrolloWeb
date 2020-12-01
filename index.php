@@ -40,8 +40,7 @@ include_once("header.php");
     <main role="main">
 
         <div class="MainImg"><img src="assets/images/Main.webp" class="img-fluid" alt="Responsive image"></div>
-
-
+                            
 
         <div class="container marketing">
 

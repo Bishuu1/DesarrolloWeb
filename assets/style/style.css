@@ -53,6 +53,7 @@ body > .container {
 }
 .MainImg {
   margin-bottom: 4rem;
+  text-align: center;
 }
 
 a.Juego:hover{
