@@ -1,0 +1,29 @@
+{
+  "name": "apicasino",
+  "version": "1.0.0",
+  "description": "api para casino",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^3.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Bishuu1/DesarrolloWeb.git"
+  },
+  "keywords": [
+    "api",
+    "casino",
+    "expressjs",
+    "nodejs"
+  ],
+  "author": "Bishuu1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bishuu1/DesarrolloWeb/issues"
+  },
+  "homepage": "https://github.com/Bishuu1/DesarrolloWeb#readme"
+}
