@@ -3,8 +3,10 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
 const port = 3000;
+const cors = require("cors");
+app.use(cors());
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: true }));
 const url = "mongodb://localhost/";
 var db;
 
@@ -61,6 +63,7 @@ app.post("/signUp", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  console.log("corriendo");
   db.collection("usuarios").findOne(
     { Email: req.body.Email, Password: req.body.Password },
     function (findErr, result) {
@@ -69,7 +72,7 @@ app.post("/login", (req, res) => {
         res.status(200).send(result);
         console.log(result.Email);
       } else {
-        return res.status(500).send("usuario y/o contraseña incorrecta");
+        res.status(500).send("usuario y/o contraseña incorrecta");
       }
     }
   );
@@ -92,27 +95,35 @@ app.get("/historial", (req, res) => {
     )
     .toArray(function (err, result) {
       if (err) throw err;
-      if (result) res.send(result);
+      if (result) {
+        console.log("si funciono historial");
+        res.send(result);
+      }
     });
 });
 
 app.get("/fondos", (req, res) => {
   console.log("empieza");
-  db.collection("usuarios").findOne(
-    { Email: req.body.Email },
-    {
-      projection: {
-        _id: 0,
-        Email: 1,
-        Saldo: 1,
-      },
-    },
-    function (err, result) {
+  db.collection("usuarios")
+    .find(
+      { Email: req.body.Email },
+      {
+        projection: {
+          _id: 1,
+          Email: 1,
+          Saldo: 1,
+        },
+      }
+    )
+    .toArray(function (err, result) {
       if (err) throw err;
-      if (result) res.send(result);
-    }
-  );
+      if (result) {
+        console.log("lo encontro");
+        res.status(200).send(result[0]);
+      }
+    });
 });
+
 app.post("/fondos", (req, res) => {
   console.log("empieza carga fondo");
   db.collection("usuarios").updateOne(
