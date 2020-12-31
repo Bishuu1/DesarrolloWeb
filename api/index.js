@@ -78,11 +78,11 @@ app.post("/login", (req, res) => {
   );
 });
 
-app.get("/historial", (req, res) => {
+app.get("/historial/:id", (req, res) => {
   console.log("empieza");
   db.collection("apuestas")
     .find(
-      { Email: req.body.Email },
+      { Email: req.params.id },
       {
         projection: {
           _id: 1,
@@ -102,11 +102,11 @@ app.get("/historial", (req, res) => {
     });
 });
 
-app.get("/fondos", (req, res) => {
-  console.log("empieza");
+app.get("/fondos/:id", (req, res) => {
+  console.log("empieza obt datos");
   db.collection("usuarios")
     .find(
-      { Email: req.body.Email },
+      { Email: req.params.id },
       {
         projection: {
           _id: 1,
@@ -119,21 +119,28 @@ app.get("/fondos", (req, res) => {
       if (err) throw err;
       if (result) {
         console.log("lo encontro");
-        res.status(200).send(result[0]);
+        res.send(200, result[0].Saldo);
       }
     });
 });
 
 app.post("/fondos", (req, res) => {
   console.log("empieza carga fondo");
+  var integer = parseInt(req.body.Agregarsaldo, 10);
   db.collection("usuarios").updateOne(
     { Email: req.body.Email },
-    { $inc: { Saldo: req.body.AgregarSaldo } },
+    { $inc: { Saldo: integer } },
     function (err, result) {
       if (err) throw err;
       if (result) res.status(200).send("Agregado " + req.body.AgregarSaldo);
     }
   );
+  db.collection("apuestas").insertOne({
+    Email: req.body.Email,
+    time: fecha,
+    Descripción: "Compra creditos",
+    Transaccion: integer,
+  });
 });
 
 app.get("/apostar", (req, res) => {

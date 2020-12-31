@@ -78,7 +78,7 @@ location.href = "index.php"
                     <input name="Password" type="password" class="form-control" required>
                 </div>
                 <div>
-                    <div class="container">
+                    <div class="ButtonContainer">
                         <div class="row justify-content-between">
                             <div class="col-5">
                                 <button type="submit" class="btn btn-danger">Iniciar sesión</button>
