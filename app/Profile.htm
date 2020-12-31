@@ -43,23 +43,23 @@
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="Ruleta.php">Ruleta</a>
+                        <a class="nav-link" href="Ruleta.htm">Ruleta</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="Dados.php">Dados</a>
+                        <a class="nav-link" href="Dados.htm">Dados</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="CaraSello.php">Cara o Sello</a>
+                        <a class="nav-link" href="CaraSello.htm">Cara o Sello</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
 
-                    <a class="nav-link" href="Profile.php">
+                    <a class="nav-link" href="Profile.htm">
 
                     </a>
                 </span>
                 <span class="navbar-text">
-                    <a class="nav-link" href="login.php">Mi Cuenta</a>
+                    <a id="Acc" class="nav-link" href="index.htm">Mi Cuenta</a>
                 </span>
             </div>
         </nav>
@@ -70,8 +70,8 @@
             <h1>Tu Perfil</h1>
             <div>
                 <p>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#CompraCreditos" role="button"
-                        aria-expanded="false" aria-controls="CompraCreditos">Compra de creditos</a>
+                    <a class="btn btn-primary" data-toggle="collapse" href="#CompraCreditos"
+                        role="button" aria-expanded="false" aria-controls="CompraCreditos">Compra de creditos</a>
                     <button class="btn btn-primary" type="button" data-toggle="collapse"
                         data-target="#HistorialTransacciones" aria-expanded="false"
                         aria-controls="HistorialTransacciones">Historial de transacciones</button>
@@ -106,93 +106,89 @@
                                 <th scope="col">Transaccion</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-
-                                <td class="table-success">
-
-                                </td>
-
-                                <td class="table-danger">
-
-                                </td>
-
-                            </tr>
+                        <tbody id="transaccionesList">
                         </tbody>
                     </table>
                 </div>
 
             </div>
 
-            <a class="btn btn-danger" href="Logout.php" role="button">Cerrar Sesión</a>
+            <a class="btn btn-danger" id="cerrarSesion" role="button">Cerrar Sesión</a>
         </div>
         <script>
             if (!localStorage.getItem('Email')) {
                 window.location.href = "index.htm";
+
             } else {
+                if (localStorage.getItem('Email')) {
+                    document.getElementById("Acc").href = "Profile.htm";
+                    document.getElementById("Acc").innerHTML = localStorage.getItem('Email');
+                }
+                console.log(localStorage.getItem('Email'));
                 $.ajax({
-                    url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/fondos",
+                    url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/fondos/" + localStorage.getItem('Email'),
                     data: {
                         Email: localStorage.getItem('Email')
                     },
                     type: "GET",
                     dataType: "json",
                     success: function (data) {
-                        document.getElementById("montoValue").placeholder = data.Saldo;
+                        document.getElementById("montoValue").placeholder = data;
                     }
                 });
 
                 $.ajax({
-                    url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/historial",
+                    url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/historial/" + localStorage.getItem('Email'),
                     data: {
                         Email: localStorage.getItem('Email')
                     },
                     type: "GET",
                     dataType: "json",
                     success: function (data) {
-                        if (200) {
-                            $("#montoValue").html(data.Saldo);
-                        }
+                        console.log(data)
+                        data.forEach(function (item, index) {
+                            if (item.Transaccion > 0) {
+                                $("#transaccionesList").append('<tr><td>' + item.time + '</td><td>' + item.Descripción + '</td><td class="table-success">' + item.Transaccion + '</td></tr>')
+                            }
+                            else {
+                                console.log(item.Descripción)
+                                $("#transaccionesList").append('<tr><td>' + item.time + '</td><td>' + item.Descripción + '</td><td class="table-danger">' + item.Transaccion + '</td></tr>')
+                            }
+                        });
                     }
                 });
+
 
                 $("#pagarButton").click(function () {
                     $.ajax({
                         url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/fondos",
                         data: {
-                            Email: localStorage.getItem('Email'),
+                            Email: localStorage.getItem("Email"),
                             AgregarSaldo: $('#AgregarSaldo').val()
                         },
                         type: "POST",
                         dataType: "json",
                         success: function (data) {
-                            if (200) {
-                                alert("Saldo agregado");
-                                $.ajax({
-                                    url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/fondos",
-                                    data: {
-                                        Email: localStorage.getItem('Email')
-                                    },
-                                    type: "GET",
-                                    dataType: "json",
-                                    success: function (data) {
-                                        if (200) {
-                                            $("#montoValue").html(data.Saldo);
-                                        }
-                                    }
-                                });
-                            }
+                            alert("Saldo agregado");
+                            $.ajax({
+                                url: "http://ec2-35-170-85-0.compute-1.amazonaws.com:3000/fondos",
+                                data: {
+                                    Email: localStorage.getItem('Email')
+                                },
+                                type: "GET",
+                                dataType: "json",
+                                success: function (data) {
+                                    document.getElementById("montoValue").placeholder = data;
+                                }
+                            });
                         }
                     });
+                });
+                $("#cerrarSesion").click(function () {
+                    localStorage.removeItem('Email');
+                    localStorage.removeItem('Password');
+                    window.location.href = "index.htm";
                 })
-
             }
 
         </script>
@@ -201,10 +197,10 @@
     <footer class="footer">
         <div class="container">
             <div class="text">
-                <a href="AboutUs.php">Sobre Nosotros</a>
+                <a href="AboutUs.htm">Sobre Nosotros</a>
             </div>
             <div class="text">
-                <a class="UsoResponsable" href="UsoResponsable.php">Uso Responsable</a>
+                <a class="UsoResponsable" href="UsoResponsable.htm">Uso Responsable</a>
             </div>
             <div class="copyright">
                 <h7>Powerby Bishuu1</h7>

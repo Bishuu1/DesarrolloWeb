@@ -24,8 +24,8 @@ $(function() {
         });
     }
 
-
-    rotate(<?php print($randomNumber) ?>);
+    var randomNumber = Math.floor(Math.random() * 37);
+    rotate(randomNumber);
 
     setTimeout(function() {
         $("#messageRuleta").css({

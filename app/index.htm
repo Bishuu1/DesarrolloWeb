@@ -28,7 +28,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="/">7Lucky!</a>
+            <a class="navbar-brand" href="#">7Lucky!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,16 +36,16 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Inicio</a>
+                        <a class="nav-link" href="#">Inicio</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Ruleta</a>
+                        <a class="nav-link" href="Ruleta.htm">Ruleta</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Dados</a>
+                        <a class="nav-link" href="Dados.htm">Dados</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Cara o Sello</a>
+                        <a class="nav-link" href="CaraSello.htm">Cara o Sello</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -79,7 +79,7 @@
                             <button type="submit" id="loginButton" class="btn btn-danger">Iniciar sesión</button>
                         </div>
                         <div class="col-4">
-                            <a class="btn btn-link" href="SignUp.php" role="button">Registrate</a>
+                            <a class="btn btn-link" href="SignUp.htm" role="button">Registrate</a>
                         </div>
                     </div>
                 </div>
@@ -101,15 +101,14 @@
                     type: "POST",
                     dataType: "json",
                     success: function (data) {
-                        if (500) {
-                            document.getElementById("alert").style.display = "block";
-                        }
-                        else if (200) {
-                            localStorage.setItem('Email', $("#Email").val());
-                            localStorage.setItem('Password', $("#Password").val());
+                        if (data.Email) {
+                            localStorage.setItem("Email", $("#Email").val());
+                            localStorage.setItem("Password", $("#Password").val());
                             window.location.href = "Home.htm";
                         }
-
+                    },
+                    error: function (textStatus) {
+                        document.getElementById("alert").style.display = "block";
                     }
                 })
             });
@@ -118,10 +117,10 @@
     <footer class="footer">
         <div class="container">
             <div class="text">
-                <a href="AboutUs.php">Sobre Nosotros</a>
+                <a href="AboutUs.htm">Sobre Nosotros</a>
             </div>
             <div class="text">
-                <a class="UsoResponsable" href="UsoResponsable.php">Uso Responsable</a>
+                <a class="UsoResponsable" href="UsoResponsable.htm">Uso Responsable</a>
             </div>
             <div class="copyright">
                 <h7>Powerby Bishuu1</h7>
