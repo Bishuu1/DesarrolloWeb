@@ -1,3 +1,3 @@
 # DesarrolloWeb
 Casino web con ruleta, crap y dados.
-Realizado también como API y versión app movil con manifest.js
+Proyecto realizado con php como un soap y también como API Rest con nodejs y javascript (jQuery) y versión app movil con manifest.js
